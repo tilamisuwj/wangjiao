@@ -1,0 +1,31 @@
+#include<stdio.h>
+#include<string.h>
+#include<assert.h>
+int ascii_to_integer(char *str)
+{
+	assert(str);
+	int num=0;
+	int len=strlen(str);
+	char *p=str;
+	while(*p!=0)
+	{
+		if(*p<'0'&&*p>'9')
+		{
+			return 0;
+		}
+		p++;
+	}
+	for(int i=0;i<len;i++,str++)
+	{
+		num=num*10+(*str-'0');
+	}
+    return num;
+	
+}
+void main()
+{
+	char *str=(char *)malloc(20);
+	gets(str);
+	int num=ascii_to_integer(str);
+	printf("%d",num);
+}
