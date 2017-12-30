@@ -1,2 +1,0 @@
-# wangjiao
-The program life
