@@ -1,0 +1,37 @@
+//flaot 强转成int 
+#include<stdio.h>
+#include<stdlib.h>
+int float_to_int(float f)
+{
+
+	int i;
+	int f_new=*(int *)&f; 
+	/*符号位*/
+	int sign=0;
+	if(f_new>>31)  //sign初值设置为0 右移31位取出符号位
+	{
+		sign=1;
+	}
+	
+	/*指数位*/
+	int index=f_new&0x7f800000;  //011111111...(23个0)
+	index=f_new>>23;
+	index=index-127;   //130-127=3
+	
+	/*尾数位*/
+	int temp=f_new&0x007fffff; //先和...(9个0)1111..(23个1)& 取出尾数部分放在临时变量中
+	int mantissa=temp|0x00800000;  //因为最后尾数前要加1 所以现在就和00 (1000)0 00 00 |，相当于提前处理加1
+	i=mantissa>>(24-(index+1));  //因为尾数提前加1 所以要右移24-(指数+1)位
+	
+	if(sign==1)  //如果符号位为1 为负数
+	{
+		i=-i;
+	}
+	return i;
+}
+void main()
+{
+	float f=13.55;
+	printf("%d",float_to_int(f));
+}
+
