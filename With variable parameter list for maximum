@@ -1,0 +1,27 @@
+#include<stdio.h>
+#include<stdarg.h>
+int max_list(int n,...)
+{
+	char *p;
+	int count;
+	int temp;
+
+    va_start(p,n);  //准备访问可变参
+	int max=va_arg(p,int);//max中保存第一个参数的值 
+
+	for(count=0;count<n;count++)
+	{
+		if(max<(temp=va_arg(p,int)))  //创建临时变量temp接收参数  和max比较 若大于max则把temp赋给max 
+		{
+			max=temp;
+		}
+	}//添加取自可变参列表的值
+
+	va_end(p);  //完成处理可变参数
+	return max;
+}
+void main()
+{
+	int max=max_list(4,5,50,8,40);
+	printf("%d\n",max);
+}
